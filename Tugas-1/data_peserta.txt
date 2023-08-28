@@ -1,0 +1,6 @@
+Data Peserta Bootcamp Digital Skill - Golang Backend Development
+1. Nama: Ranisa Aulia
+2. Email: ranisaaulia31@gmail.com
+3. Sistem Operasi yang digunakan: windows 10
+4. Akun Gitlab/Github: ranisaaulia
+5. Akun Telegram: ranisaaulia
