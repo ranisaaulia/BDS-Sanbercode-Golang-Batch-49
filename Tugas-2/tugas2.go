@@ -30,6 +30,12 @@ func soal3() {
 	kataKetiga := "belajar"
 	kataKeempat := "golang"
 
+	// Mengonversi kataKetiga menjadi "belajaR" dengan huruf 'R' besar
+	kataKetiga = strings.Replace(kataKetiga, "r", "R", 7)
+
+	// Mengonversi kataKeempat menjadi "GOLANG" dengan huruf besar
+	kataKeempat = strings.ToUpper(kataKeempat)
+
 	fmt.Println(kataPertama, kataKedua, kataKetiga, kataKeempat)
 }
 
