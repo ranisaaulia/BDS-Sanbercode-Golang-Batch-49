@@ -10,7 +10,7 @@ type Buah struct {
 }
 
 type Segitiga struct {
-	alas, tinggi int
+	Alas, Tinggi int
 }
 
 type Persegi struct {
@@ -61,7 +61,7 @@ func buah() {
 
 // Metode luas untuk segitiga
 func (s Segitiga) luas() int {
-	luasSegitiga := (s.alas * s.tinggi) / 2
+	luasSegitiga := (s.Alas * s.Tinggi) / 2
 	fmt.Printf("Luas Segitiga: %d\n", luasSegitiga)
 	return luasSegitiga
 }
@@ -117,7 +117,7 @@ func main() {
 	buah()
 	fmt.Println()
 
-	(Segitiga{alas: 3, tinggi: 6}.luas())
+	(Segitiga{Alas: 3, Tinggi: 6}.luas())
 	(Persegi{Sisi: 6}.luas())
 	(PersegiPanjang{Panjang: 3, Lebar: 2}.luas())
 	fmt.Println()
