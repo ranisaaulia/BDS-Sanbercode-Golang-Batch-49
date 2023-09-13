@@ -86,87 +86,87 @@ func main() {
 
 	// nomor 3 dan 4 di execute bergantian karena terdapat duplicate wg
 
-	// fmt.Println()
-	// radii := []float64{8, 14, 20}
-	// height := 10
-
-	// var wg sync.WaitGroup
-	// luasChannel := make(chan float64)
-	// kelilingChannel := make(chan float64)
-	// volumeChannel := make(chan float64)
-
-	// for _, radius := range radii {
-	// 	wg.Add(1)
-	// 	go func(radius float64) {
-	// 		defer wg.Done()
-	// 		luasLingkaran(radius, luasChannel)
-	// 		kelilingLingkaran(radius, kelilingChannel)
-	// 		volumeTabung(radius, float64(height), volumeChannel)
-	// 	}(radius)
-	// }
-
-	// go func() {
-	// 	wg.Wait()
-	// 	close(luasChannel)
-	// 	close(kelilingChannel)
-	// 	close(volumeChannel)
-	// }()
-
-	// for radius := range luasChannel {
-	// 	area := <-luasChannel
-	// 	circumference := <-kelilingChannel
-	// 	volume := <-volumeChannel
-
-	// 	fmt.Printf("Jari-jari: %.2f\n", radius)
-	// 	fmt.Printf("Luas Lingkaran: %.2f\n", area)
-	// 	fmt.Printf("Keliling Lingkaran: %.2f\n", circumference)
-	// 	fmt.Printf("Volume Tabung: %.2f\n\n", volume)
-	// }
-
 	fmt.Println()
-	luasChan := make(chan float64)
-	kelilingChan := make(chan float64)
-	volumeChan := make(chan float64)
-
-	hasil := Ukuran{Panjang: 5, Lebar: 3, Tinggi: 4, Luas: luasChan, Keliling: kelilingChan, Volume: volumeChan}
+	radii := []float64{8, 14, 20}
+	height := 10
 
 	var wg sync.WaitGroup
+	luasChannel := make(chan float64)
+	kelilingChannel := make(chan float64)
+	volumeChannel := make(chan float64)
 
-	wg.Add(3)
-
-	go func() {
-		defer wg.Done()
-		hasil.HitungLuas()
-	}()
-
-	go func() {
-		defer wg.Done()
-		hasil.HitungKeliling()
-	}()
-
-	go func() {
-		defer wg.Done()
-		hasil.HitungVolume()
-	}()
+	for _, radius := range radii {
+		wg.Add(1)
+		go func(radius float64) {
+			defer wg.Done()
+			luasLingkaran(radius, luasChannel)
+			kelilingLingkaran(radius, kelilingChannel)
+			volumeTabung(radius, float64(height), volumeChannel)
+		}(radius)
+	}
 
 	go func() {
 		wg.Wait()
-		close(luasChan)
-		close(kelilingChan)
-		close(volumeChan)
+		close(luasChannel)
+		close(kelilingChannel)
+		close(volumeChannel)
 	}()
 
-	select {
-	case luas := <-luasChan:
-		fmt.Printf("Luas Persegi Panjang: %.2f\n", luas)
+	for radius := range luasChannel {
+		area := <-luasChannel
+		circumference := <-kelilingChannel
+		volume := <-volumeChannel
+
+		fmt.Printf("Jari-jari: %.2f\n", radius)
+		fmt.Printf("Luas Lingkaran: %.2f\n", area)
+		fmt.Printf("Keliling Lingkaran: %.2f\n", circumference)
+		fmt.Printf("Volume Tabung: %.2f\n\n", volume)
 	}
-	select {
-	case keliling := <-kelilingChan:
-		fmt.Printf("Keliling Persegi Panjang: %.2f\n", keliling)
-	}
-	select {
-	case volume := <-volumeChan:
-		fmt.Printf("Volume Balok: %.2f\n", volume)
-	}
+
+	// fmt.Println()
+	// luasChan := make(chan float64)
+	// kelilingChan := make(chan float64)
+	// volumeChan := make(chan float64)
+
+	// hasil := Ukuran{Panjang: 5, Lebar: 3, Tinggi: 4, Luas: luasChan, Keliling: kelilingChan, Volume: volumeChan}
+
+	// var wg sync.WaitGroup
+
+	// wg.Add(3)
+
+	// go func() {
+	// 	defer wg.Done()
+	// 	hasil.HitungLuas()
+	// }()
+
+	// go func() {
+	// 	defer wg.Done()
+	// 	hasil.HitungKeliling()
+	// }()
+
+	// go func() {
+	// 	defer wg.Done()
+	// 	hasil.HitungVolume()
+	// }()
+
+	// go func() {
+	// 	wg.Wait()
+	// 	close(luasChan)
+	// 	close(kelilingChan)
+	// 	close(volumeChan)
+	// }()
+
+	// select {
+	// case luas := <-luasChan:
+	// 	fmt.Printf("Luas Persegi Panjang: %.2f\n", luas)
+	// }
+	// select {
+	// case keliling := <-kelilingChan:
+	// 	fmt.Printf("Keliling Persegi Panjang: %.2f\n", keliling)
+	// }
+	// select {
+	// case volume := <-volumeChan:
+	// 	fmt.Printf("Volume Balok: %.2f\n", volume)
+	// }
 
 }
